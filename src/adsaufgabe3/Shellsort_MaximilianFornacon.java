@@ -1,15 +1,15 @@
 package adsaufgabe3;
 
 public class Shellsort_MaximilianFornacon implements IShellsort {
-
-    /* Der Konstruktor hat kein Argument
-     */
     public Shellsort_MaximilianFornacon() {
 
     }
-
-    /* Rueckgabewert: Anzahl der Schluesselvergleiche
-     */
+    
+    
+    
+    
+    
+    
     public int shellsort(String[] feld) {
     	int vgl = 0;
     	int schrittweite = 1;
@@ -23,22 +23,21 @@ public class Shellsort_MaximilianFornacon implements IShellsort {
 			for (int i = schrittweite + 1; i < feld.length; i++) {
 				neu = feld[i - 1];
 				k = i;
-				//while (k > schrittweite && (getAnzA(feld[k - schrittweite]) > getAnzA(neu) || (feld[k - schrittweite].length() > neu.length() && getAnzA(feld[k - schrittweite]) == getAnzA(neu)))) {
-				while (k > schrittweite && getAnzA(feld[k-schrittweite - 1]) * feld[k - schrittweite - 1].length() > getAnzA(neu) * neu.length()) {
+				while (k > schrittweite && (getAnzA(feld[k - schrittweite - 1]) > getAnzA(neu) || feld[k - schrittweite - 1].length() > neu.length() && getAnzA(feld[k - schrittweite - 1]) == getAnzA(neu))) {
+				//while (k > schrittweite && getAnzA(feld[k-schrittweite - 1]) * feld[k - schrittweite - 1].length() > getAnzA(neu) * neu.length()) {
 					feld[k - 1] = feld[k - schrittweite - 1];
 					k = k - schrittweite;
 					vgl++;
 				}
-				feld[k] = neu;
+				feld[k - 1] = neu;
 			}
 			
 			schrittweite = (int) Math.floor(schrittweite/3);
-			//System.out.println(schrittweite);
 		}
-		for (String s : feld) {
+		/*for (String s : feld) {
 			System.out.println(s);
 		}
-		System.out.println(vgl);
+		System.out.println(vgl);*/
 		return vgl;
     }
     
@@ -61,11 +60,40 @@ public class Shellsort_MaximilianFornacon implements IShellsort {
 		}
     	return counter;
     }
+    
+    public boolean isBigger(String r, String s) {
+    	if (getAnzA(r) < getAnzA(s)) {
+    		return false;
+    	} else if (getAnzA(r) == getAnzA(s) && r.length() < s.length()) {
+    		return false;
+    	} else {
+    		return true;
+    	}
+    }
 
     /* Rueckgabewert: Anzahl der Schluesselvergleiche
      */
     public int insertionsortMitSchrittweite(String[] feld, int schrittweite) {
-	return 0;
+    	int vgl = 0;
+    	String neu = "";
+    	int k = 0;
+		for (int i = schrittweite + 1; i < feld.length; i++) {
+			neu = feld[i - 1];
+			k = i;
+			while (k > schrittweite && isBigger(feld[k - schrittweite], neu)) {
+			//while (k > schrittweite && getAnzA(feld[k-schrittweite - 1]) * feld[k - schrittweite - 1].length() > getAnzA(neu) * neu.length()) {
+				feld[k - 1] = feld[k - schrittweite - 1];
+				k = k - schrittweite;
+				vgl++;
+			}
+			feld[k - 1] = neu;
+		}
+		
+		for (String s : feld) {
+			System.out.println(s);
+		}
+		System.out.println(vgl);
+		return vgl;
     }
 
 
